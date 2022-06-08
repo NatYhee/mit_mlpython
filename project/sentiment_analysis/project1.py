@@ -61,17 +61,17 @@ def hinge_loss_full(feature_matrix, labels, theta, theta_0):
     given dataset and parameters. This number should be the average hinge
     loss across all of the points in the feature matrix.
     """
-    ls_z = labels*np.matmul(feature_matrix, theta) + theta_0
-    
+    obs = feature_matrix.shape[0]
+    array_z = labels*(np.matmul(feature_matrix, theta) + theta_0)
     loss = 0
     
-    for z in ls_z:
+    for z in array_z:
         if z >= 1:
             loss += 0
         else:
-            loss = 1 - z
+            loss += 1 - z
     
-    return loss         
+    return loss/obs
 
 
 def perceptron_single_step_update(
