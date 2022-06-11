@@ -96,8 +96,12 @@ def perceptron_single_step_update(
     real valued number with the value of theta_0 after the current updated has
     completed.
     """
-    # Your code here
-    raise NotImplementedError
+    
+    if label*(np.matmul(feature_vector, current_theta.T) + current_theta_0) <= 0:
+        current_theta = current_theta + label*feature_vector
+        current_theta_0 = current_theta_0 + label
+    
+    return current_theta, current_theta_0
 
 
 def perceptron(feature_matrix, labels, T):
