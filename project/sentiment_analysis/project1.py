@@ -299,8 +299,8 @@ def classify(feature_matrix, theta, theta_0):
     given theta and theta_0. If a prediction is GREATER THAN zero, it should
     be considered a positive classification.
     """
-    # Your code here
-    raise NotImplementedError
+    preds = np.array(np.where(np.matmul(feature_matrix,theta) + theta_0 > 0, 1, -1))
+    return preds
 
 
 def classifier_accuracy(
