@@ -1,3 +1,4 @@
+from bdb import Breakpoint
 from string import punctuation, digits
 import numpy as np
 import random
@@ -170,10 +171,29 @@ def average_perceptron(feature_matrix, labels, T):
     Hint: It is difficult to keep a running average; however, it is simple to
     find a sum and divide.
     """
-    # Your code here
-    raise NotImplementedError
+    theta = np.zeros(feature_matrix.shape[1])
+    theta_0 = 0
+    
+    all_theta = theta.reshape((1,-1))
+    all_theta_0 = [theta_0]
 
+    for t in range(T):
+        for i in get_order(feature_matrix.shape[0]):
+            if labels[i]*(np.matmul(feature_matrix[i], theta.T) + theta_0) <= 0:
+                theta = theta + labels[i]*feature_matrix[i]
+                theta_0 = theta_0 + labels[i]
+                
+            all_theta = np.append(all_theta, theta.reshape((1,-1)), axis=0)
+            all_theta_0.append(theta_0)
+    
+    all_theta = all_theta[1:]
+    all_theta_0 = all_theta_0[1:]
+    
+    avg_theta = np.average(all_theta, axis=0)
+    avg_theta_0 = np.mean(all_theta_0)
 
+    return avg_theta, avg_theta_0
+    
 def pegasos_single_step_update(
         feature_vector,
         label,
