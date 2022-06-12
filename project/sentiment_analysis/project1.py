@@ -220,9 +220,14 @@ def pegasos_single_step_update(
     real valued number with the value of theta_0 after the current updated has
     completed.
     """
-    # Your code here
-    raise NotImplementedError
-
+    if label*(np.matmul(feature_vector, current_theta.T)+current_theta_0) <= 1:
+        current_theta = (1 - eta*L)*current_theta + eta*label*feature_vector
+        current_theta_0 = current_theta_0 + eta*label
+    else:
+        current_theta = (1 - eta*L)*current_theta
+        current_theta_0 = current_theta_0
+    
+    return current_theta, current_theta_0
 
 def pegasos(feature_matrix, labels, T, L):
     """
