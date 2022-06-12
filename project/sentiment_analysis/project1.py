@@ -299,7 +299,9 @@ def classify(feature_matrix, theta, theta_0):
     given theta and theta_0. If a prediction is GREATER THAN zero, it should
     be considered a positive classification.
     """
-    preds = np.array(np.where(np.matmul(feature_matrix,theta) + theta_0 > 0, 1, -1))
+    epsilon = 1e-14 
+    z_array = np.matmul(feature_matrix,theta) + theta_0
+    preds = np.where((z_array < 0) | (np.absolute(z_array) < epsilon), -1, 1)
     return preds
 
 
@@ -335,8 +337,25 @@ def classifier_accuracy(
     trained classifier on the training data and the second element is the
     accuracy of the trained classifier on the validation data.
     """
-    # Your code here
-    raise NotImplementedError
+    epsilon = 1e-14
+    
+    theta, theta_0 = classifier(
+        feature_matrix = train_feature_matrix,
+        labels = train_labels,
+        **kwargs
+    )
+    
+    train_z = np.matmul(train_feature_matrix, theta) + theta_0
+    train_preds = np.where((train_z < 0) | (np.absolute(train_z) < epsilon), -1, 1)
+    train_check = np.where(train_preds == train_labels, 1 ,0)
+    train_accuracy = np.sum(train_check)/train_feature_matrix.shape[0]
+
+    val_z = np.matmul(val_feature_matrix, theta) + theta_0
+    val_preds = np.where((val_z < 0) | (np.absolute(val_z) < epsilon), -1, 1)
+    val_check = np.where(val_preds == val_labels, 1 ,0)
+    val_accuracy = np.sum(val_check)/val_feature_matrix.shape[0]
+    
+    return train_accuracy, val_accuracy
 
 
 def extract_words(input_string):
