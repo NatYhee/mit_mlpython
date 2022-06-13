@@ -1,5 +1,6 @@
 from bdb import Breakpoint
 from string import punctuation, digits
+from collections import Counter
 import numpy as np
 import random
 
@@ -387,7 +388,7 @@ def bag_of_words(texts, stopwords=None):
     return dictionary
 
 
-def extract_bow_feature_vectors(reviews, dictionary):
+def extract_bow_feature_vectors(reviews, dictionary, approach="binary"):
     """
     Inputs a list of string reviews
     Inputs the dictionary of words as given by bag_of_words
@@ -406,7 +407,11 @@ def extract_bow_feature_vectors(reviews, dictionary):
         word_list = extract_words(text)
         for word in word_list:
             if word in dictionary:
-                feature_matrix[i, dictionary[word]] = 1
+                if approach == "binary":
+                    feature_matrix[i, dictionary[word]] = 1
+                elif approach == "count":
+                    feature_matrix[i, dictionary[word]] += 1
+                    
     return feature_matrix
 
 
