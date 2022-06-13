@@ -175,3 +175,20 @@ pegasos_val_wo_stopwords_accuracy = p1.classifier_accuracy(
     L=0.0100
 )
 print(pegasos_val_wo_stopwords_accuracy)
+
+#---------------------------------------------------------------------------
+
+train_bow_features_wo_stopwords = p1.extract_bow_feature_vectors(train_texts, dictionary_wo_stopwords, "count")
+val_bow_features_wo_stopwords = p1.extract_bow_feature_vectors(val_texts, dictionary_wo_stopwords, "count")
+test_bow_features_wo_stopwords = p1.extract_bow_feature_vectors(test_texts, dictionary_wo_stopwords, "count")
+
+pegasos_val_wo_stopwords_accuracy = p1.classifier_accuracy(
+    p1.pegasos,
+    train_bow_features_wo_stopwords,
+    test_bow_features_wo_stopwords,
+    train_labels,
+    test_labels,
+    T=25,
+    L=0.0100
+)
+print(pegasos_val_wo_stopwords_accuracy)
