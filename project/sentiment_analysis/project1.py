@@ -365,20 +365,25 @@ def extract_words(input_string):
     return input_string.lower().split()
 
 
-def bag_of_words(texts):
+def bag_of_words(texts, stopwords=None):
     """
     Inputs a list of string reviews
     Returns a dictionary of unique unigrams occurring over the input
 
     Feel free to change this code as guided by Problem 9
     """
-    # Your code here
-    dictionary = {} # maps word to unique index
+    dictionary = {} 
     for text in texts:
         word_list = extract_words(text)
         for word in word_list:
+            
+            if stopwords is not None:
+                if word in stopwords:
+                    continue
+                
             if word not in dictionary:
                 dictionary[word] = len(dictionary)
+
     return dictionary
 
 
