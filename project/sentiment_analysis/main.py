@@ -132,3 +132,46 @@ test_bow_features = p1.extract_bow_feature_vectors(test_texts, dictionary)
 # breakpoint()
 # print("Most Explanatory Word Features")
 # print(sorted_word_features[:10])
+
+#-------------------------------------------------------------------------------
+# Problem 9
+#-------------------------------------------------------------------------------
+
+def get_list_stopword(path):
+    """
+    Import textfile of stopwords as list
+    
+    Input:
+        path (str): path of stopword file
+    
+    Returns:
+        list: list of stopword
+    """
+    stopwords = []
+    
+    with open(path, "r") as reader:
+        lines = reader.readlines()
+        for line in lines:
+            stopword = line.replace("\n", "")
+            stopwords.append(stopword)
+            
+    return stopwords
+
+stopwords = get_list_stopword("stopwords.txt")
+
+dictionary_wo_stopwords = p1.bag_of_words(train_texts, stopwords)
+
+train_bow_features_wo_stopwords = p1.extract_bow_feature_vectors(train_texts, dictionary_wo_stopwords)
+val_bow_features_wo_stopwords = p1.extract_bow_feature_vectors(val_texts, dictionary_wo_stopwords)
+test_bow_features_wo_stopwords = p1.extract_bow_feature_vectors(test_texts, dictionary_wo_stopwords)
+
+pegasos_val_wo_stopwords_accuracy = p1.classifier_accuracy(
+    p1.pegasos,
+    train_bow_features_wo_stopwords,
+    test_bow_features_wo_stopwords,
+    train_labels,
+    test_labels,
+    T=25,
+    L=0.0100
+)
+print(pegasos_val_wo_stopwords_accuracy)
