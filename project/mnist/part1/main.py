@@ -41,7 +41,10 @@ def run_linear_regression_on_MNIST(lambda_factor=1):
 
 
 # Don't run this until the relevant functions in linear_regression.py have been fully implemented.
-print('Linear Regression test_error =', run_linear_regression_on_MNIST(lambda_factor=1))
+lambda_factors = [1, 0.1, 0.01]
+
+for lambda_factor in lambda_factors:
+    print(f"Linear Regression test_error with labmda at {lambda_factor} =", run_linear_regression_on_MNIST(lambda_factor=lambda_factor))
 
 #######################################################################
 # 3. Support Vector Machine
