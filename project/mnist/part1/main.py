@@ -41,10 +41,10 @@ def run_linear_regression_on_MNIST(lambda_factor=1):
 
 
 # Don't run this until the relevant functions in linear_regression.py have been fully implemented.
-lambda_factors = [1, 0.1, 0.01]
+# lambda_factors = [1, 0.1, 0.01]
 
-for lambda_factor in lambda_factors:
-    print(f"Linear Regression test_error with labmda at {lambda_factor} =", run_linear_regression_on_MNIST(lambda_factor=lambda_factor))
+# for lambda_factor in lambda_factors:
+#     print(f"Linear Regression test_error with labmda at {lambda_factor} =", run_linear_regression_on_MNIST(lambda_factor=lambda_factor))
 
 #######################################################################
 # 3. Support Vector Machine
@@ -67,7 +67,7 @@ def run_svm_one_vs_rest_on_MNIST():
     return test_error
 
 
-print('SVM one vs. rest test_error:', run_svm_one_vs_rest_on_MNIST())
+# print('SVM one vs. rest test_error:', run_svm_one_vs_rest_on_MNIST())
 
 
 def run_multiclass_svm_on_MNIST():
@@ -83,7 +83,7 @@ def run_multiclass_svm_on_MNIST():
     return test_error
 
 
-print('Multiclass SVM test_error:', run_multiclass_svm_on_MNIST())
+# print('Multiclass SVM test_error:', run_multiclass_svm_on_MNIST())
 
 #######################################################################
 # 4. Multinomial (Softmax) Regression and Gradient Descent
@@ -119,15 +119,15 @@ def run_softmax_on_MNIST(temp_parameter=1):
     return test_error
 
 
-print('softmax test_error=', run_softmax_on_MNIST(temp_parameter=1))
+# print('softmax test_error=', run_softmax_on_MNIST(temp_parameter=1))
 
 # TODO: Find the error rate for temp_parameter = [.5, 1.0, 2.0]
 #      Remember to return the tempParameter to 1, and re-run run_softmax_on_MNIST
 
-temp_parameters = [.5 , 1, 2]
+# temp_parameters = [.5 , 1, 2]
 
-for temp in temp_parameters:
-    print(f"softmax test_error with = temperature at {temp}", run_softmax_on_MNIST(temp_parameter=temp))
+# for temp in temp_parameters:
+#     print(f"softmax test_error with = temperature at {temp}", run_softmax_on_MNIST(temp_parameter=temp))
     
 #######################################################################
 # 6. Changing Labels
@@ -150,7 +150,7 @@ def run_softmax_on_MNIST_mod3(temp_parameter=1):
     return test_error
     
 # TODO: Run run_softmax_on_MNIST_mod3(), report the error rate
-print('softmax mod3 test_error=', run_softmax_on_MNIST_mod3(temp_parameter=1))
+# print('softmax mod3 test_error=', run_softmax_on_MNIST_mod3(temp_parameter=1))
 
 #######################################################################
 # 7. Classification Using Manually Crafted Features
