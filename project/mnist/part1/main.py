@@ -175,6 +175,9 @@ test_pca = project_onto_PC(test_x, pcs, n_components, feature_means)
 
 # TODO: Train your softmax regression model using (train_pca, train_y)
 #       and evaluate its accuracy on (test_pca, test_y).
+theta_pca, _ = softmax_regression(train_pca, train_y, 1, alpha=0.3, lambda_factor=1.0e-4, k=10, num_iterations=150)
+test_error = compute_test_error(test_pca, test_y, theta_pca, 1)
+print(f"test error pca 18 dimension with softmax = {test_error}")
 
 
 # TODO: Use the plot_PC function in features.py to produce scatterplot
