@@ -87,8 +87,19 @@ def run_gradient_descent_iteration(X, Y, theta, alpha, lambda_factor, temp_param
     Returns:
         theta - (k, d) NumPy array that is the final value of parameters theta
     """
-    #YOUR CODE HERE
-    raise NotImplementedError
+    num_obs = X.shape[0]
+    num_labels = theta.shape[0]
+    bool_matrix = sparse.coo_matrix(
+        (np.ones((num_obs)), (Y, np.array(range(num_obs)))), 
+        shape=(num_labels, num_obs)
+    ).toarray()
+    
+    prob_matrix = compute_probabilities(X, theta, temp_parameter)
+    grad_metrix = -1/(temp_parameter*num_obs)*((bool_matrix - prob_matrix)@X) + lambda_factor*theta
+    
+    theta += -alpha*grad_metrix
+    
+    return theta
 
 def update_y(train_y, test_y):
     """
