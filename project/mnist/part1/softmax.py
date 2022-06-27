@@ -31,8 +31,14 @@ def compute_probabilities(X, theta, temp_parameter):
     Returns:
         H - (k, n) NumPy array, where each entry H[j][i] is the probability that X[i] is labeled as j
     """
-    #YOUR CODE HERE
-    raise NotImplementedError
+    metrix_theta_x = theta@X.T/temp_parameter
+    c_factor = np.max(metrix_theta_x, axis=0)
+
+    exp_theta_x = np.exp(metrix_theta_x - c_factor)
+    scale_vector = np.sum(exp_theta_x, axis=0)
+    H = exp_theta_x/scale_vector
+    
+    return H
 
 def compute_cost_function(X, Y, theta, lambda_factor, temp_parameter):
     """
