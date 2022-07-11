@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.svm import LinearSVC
+from sklearn.svm import LinearSVC, SVC
 
 
 ### Functions for you to fill in ###
@@ -43,3 +43,37 @@ def multi_class_svm(train_x, train_y, test_x):
 def compute_test_error_svm(test_y, pred_test_y):
     return 1 - np.mean(pred_test_y == test_y)
 
+
+def multi_class_svm_poly(train_x, train_y, test_x):
+    """
+    Trains a poly SVM for multiclass classifciation using a one-vs-rest strategy
+
+    Args:
+        train_x - (n, d) NumPy array (n datapoints each with d features)
+        train_y - (n, ) NumPy array containing the labels (int) for each training data point
+        test_x - (m, d) NumPy array (m datapoints each with d features)
+    Returns:
+        pred_test_y - (m,) NumPy array containing the labels (int) for each test data point
+    """
+    model = SVC(random_state=0, kernel='poly', degree=3)
+    model.fit(train_x, train_y)
+    pred = model.predict(test_x)
+
+    return pred
+
+def multi_class_svm_rbf(train_x, train_y, test_x):
+    """
+    Trains a poly SVM for multiclass classifciation using a one-vs-rest strategy
+git dif
+    Args:
+        train_x - (n, d) NumPy array (n datapoints each with d features)
+        train_y - (n, ) NumPy array containing the labels (int) for each training data point
+        test_x - (m, d) NumPy array (m datapoints each with d features)
+    Returns:
+        pred_test_y - (m,) NumPy array containing the labels (int) for each test data point
+    """
+    model = SVC(random_state=0, kernel='rbf')
+    model.fit(train_x, train_y)
+    pred = model.predict(test_x)
+
+    return pred

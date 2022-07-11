@@ -201,7 +201,10 @@ print(f"test error pca 18 dimension with softmax = {test_error}")
 
 ## Cubic Kernel ##
 # TODO: Find the 10-dimensional PCA representation of the training and test set
-
+train_x_centered, feature_means = center_data(train_x)
+pcs = principal_components(train_x_centered)
+train_pca10 = project_onto_PC(train_x, pcs, 10, feature_means)
+test_pca10 = project_onto_PC(test_x, pcs, 10, feature_means)
 
 # TODO: First fill out cubicFeatures() function in features.py as the below code requires it.
 
@@ -213,3 +216,15 @@ test_cube = cubic_features(test_pca10)
 
 # TODO: Train your softmax regression model using (train_cube, train_y)
 #       and evaluate its accuracy on (test_cube, test_y).
+theta, cost_function_history = softmax_regression(train_cube, train_y, 1, alpha=0.3, lambda_factor=1.0e-4, k=10, num_iterations=150)
+plot_cost_function_over_time(cost_function_history)
+test_error = compute_test_error(test_cube, test_y, theta, 1)
+print(f"test error pca 10 dimension with cube features and softmax = {test_error}")
+
+pred_test_cube_y = multi_class_svm_poly(train_cube, train_y, test_cube)
+test_error = compute_test_error_svm(test_y, pred_test_cube_y)
+print(f"test error pca 10 dimension with cube features and svm poly kernel= {test_error}")
+
+pred_test_cube_y = multi_class_svm_rbf(train_cube, train_y, test_cube)
+test_error = compute_test_error_svm(test_y, pred_test_cube_y)
+print(f"test error pca 10 dimension with cube features and svm rbf kernel= {test_error}")
