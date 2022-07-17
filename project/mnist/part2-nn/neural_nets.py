@@ -16,12 +16,12 @@ import math
 def rectified_linear_unit(x):
     """ Returns the ReLU of x, or the maximum between 0 and x."""
     x_shape = x.shape
-    zero_vector = np.zeroes(shape=x_shape)
+    zero_vector = np.zeros(shape=x_shape)
     return np.maximum(x,zero_vector)
 
 def rectified_linear_unit_derivative(x):
     """ Returns the derivative of ReLU."""
-    return np.where(x < 0, 0, 1)
+    return np.where(x <= 0, 0, 1)
 
 def output_layer_activation(x):
     """ Linear function, returns input as is. """
